@@ -1,16 +1,17 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
+import { Button } from '@material-ui/core';
 
-export default function ButtonMUI(text, route) {
+export default function ButtonComponent(props) {
+
   return (
-    <Link
-      component="button"
-      variant="body2"
-      onClick={() => {
-        this.props.history.push(`${route}`)
-      }}
+    <Button
+      {
+        ...props
+      }
+      variant="contained"
+      color="secondary"
     >
-      `${text}`
-    </Link>
+      {props.value}
+    </Button>
   );
 }
