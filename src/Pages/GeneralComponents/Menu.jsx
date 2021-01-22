@@ -10,13 +10,15 @@ import { useHistory } from "react-router";
 const useStyles = makeStyles((theme) => ({
   buttons: {
     marginRight: theme.spacing(2),
-
+    width: '14ch',
+    backgroundColor: 'black',
   },
   Toolbar: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      width: '100%'
+      width: '100%',
+      backgroundColor: 'black'
   }
 }));
 
@@ -27,9 +29,10 @@ function Menu(){
   <AppBar position="relative">
     <Toolbar className={classes.Toolbar}>
       <Typography variant="h6" color="inherit" noWrap>
-        Churiço nome do programa
+        Lolzinho
       </Typography>
       <div>
+      <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Home" onClick={()=> history.push('/')} />
         <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Champion" onClick={()=> history.push('/Champion')} />
         <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Summoner" onClick={()=> history.push('/Summoner')} />
         <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Teste" onClick={()=> history.push('/Champion')} />
