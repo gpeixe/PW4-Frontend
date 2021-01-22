@@ -9,7 +9,7 @@ export default function ButtonComponent(props) {
         ...props
       }
       variant="contained"
-      color="secondary"
+      color={props.color}
     >
       {props.value}
     </Button>
