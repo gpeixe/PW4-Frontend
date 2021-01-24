@@ -10,9 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-import Menu from '../GeneralComponents/Menu';
+import Menu from '../../Components/Menu';
 import { withRouter } from 'react-router';
-import { CardActionArea } from '@material-ui/core';
+import { ButtonBase, CardActionArea } from '@material-ui/core';
 import ChampionsAPI from '../../API/config';
 
 
@@ -71,7 +71,7 @@ class ChampionsPage extends Component {
   setChampions(response.data);
 }
 */
-  state = {  cards: [1,2,3,4,5,6,7,8,9], champions: [] }
+  state = { cards: [1,2,3,4,5,6,7,8,9], champions: [] }
   async componentDidMount(){
     let champions = await ChampionsAPI.getAllChampions();
     this.setState({
@@ -82,7 +82,6 @@ class ChampionsPage extends Component {
     const {
       champions
     } = this.state;
-    console.log('### Champions:', champions);
     const classes = this.props.classes;
     return (
       <React.Fragment>
@@ -101,27 +100,29 @@ class ChampionsPage extends Component {
               {champions.map((champ) => (
                 <Grid item key={champ.key} xs={12} sm={6} md={4}>
                   <Card className={classes.card}>
-                    <CardActionArea>
-                      <CardMedia
-                          className={classes.cardMedia}
-                          image={champ.image}
-                          title={champ.name}
-                      />
-                      <img src={champ.image} />
-                      <CardContent className={classes.cardContent}>
-                          <Typography gutterBottom variant="h5" component="h2">
-                          {champ.name}
-                          </Typography>
-                          <Typography>
-                          {champ.blurb}
-                          </Typography>
-                      </CardContent>
-                      <CardActions>
-                          <Button size="small" color="primary">
-                          View
-                          </Button>
-                      </CardActions>
-                    </CardActionArea>
+                    <ButtonBase onClick={() => this.props.history.push(`${this.props.location.pathname}/${champ.name}`)}>
+                      <CardActionArea>
+                        <CardMedia
+                            className={classes.cardMedia}
+                            src={champ.image}
+                            title={champ.name}
+                        />
+                        <img src={champ.image} alt={champ.name} />
+                        <CardContent className={classes.cardContent}>
+                            <Typography gutterBottom variant="h5" component="h2">
+                            {champ.name}
+                            </Typography>
+                            <Typography>
+                            {champ.blurb}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small" color="primary">
+                            View
+                            </Button>
+                        </CardActions>
+                      </CardActionArea>
+                  </ButtonBase>
                   </Card>
                 </Grid>
               ))}
@@ -143,4 +144,4 @@ class ChampionsPage extends Component {
     );
   }
 }
-export default withStyles(useStyles)(withRouter(ChampionsPage));
+export default (withStyles(useStyles)(withRouter(ChampionsPage)));
