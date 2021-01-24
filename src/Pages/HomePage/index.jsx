@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-import Menu from '../GeneralComponents/Menu';
+import Menu from '../../Components/Menu';
 import SearchBar from './Components/SearchBar';
 import { withRouter } from 'react-router';
 
