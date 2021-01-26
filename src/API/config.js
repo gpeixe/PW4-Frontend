@@ -7,10 +7,14 @@ const client = axios.create({
     }
 });
 
-class ChampionsAPI {
+class appAPI {
     static async getAllChampions(){
-        return await client.get('/Champion').then(result => result.data).catch(e => console.error(e))
+        return await client.get('/Champion').then(result => result.data).catch(e => console.error(e));
+    }
+
+    static async getSummoner(name){
+        return await client.get('/Summoner/'+ name).then(result => result.data).catch(e => console.error(e));
     }
 }
 
-export default ChampionsAPI;
+export default appAPI;

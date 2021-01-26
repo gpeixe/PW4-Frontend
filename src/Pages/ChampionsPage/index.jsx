@@ -13,7 +13,7 @@ import Link from '@material-ui/core/Link';
 import Menu from '../../Components/Menu';
 import { withRouter } from 'react-router';
 import { ButtonBase, CardActionArea } from '@material-ui/core';
-import ChampionsAPI from '../../API/config';
+import appAPI from '../../API/config';
 
 
 function Copyright() {
@@ -73,7 +73,7 @@ class ChampionsPage extends Component {
 */
   state = { cards: [1,2,3,4,5,6,7,8,9], champions: [] }
   async componentDidMount(){
-    let champions = await ChampionsAPI.getAllChampions();
+    let champions = await appAPI.getAllChampions();
     this.setState({
       champions
     });
