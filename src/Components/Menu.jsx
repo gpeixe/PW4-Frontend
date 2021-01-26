@@ -32,10 +32,8 @@ function Menu(){
         Lolzinho
       </Typography>
       <div>
-      <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Home" onClick={()=> history.push('/')} />
+        <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Home" onClick={()=> history.push('/')} />
         <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Champion" onClick={()=> history.push('/Champion')} />
-        <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Summoner" onClick={()=> history.push('/Summoner')} />
-        <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Teste" onClick={()=> history.push('/Champion')} />
       </div>
     </Toolbar>
   </AppBar>
