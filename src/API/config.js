@@ -15,6 +15,9 @@ class appAPI {
     static async getSummoner(name){
         return await client.get('/Summoner/'+ name).then(result => result.data).catch(e => console.error(e));
     }
+    static async getChampion(name){
+        return await client.get('/Champion/'+ name).then(result => result.data).catch(e => console.error(e));
+    }
 }
 
 export default appAPI;

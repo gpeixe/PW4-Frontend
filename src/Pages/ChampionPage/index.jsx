@@ -1,9 +1,4 @@
 import React, { Component, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -12,8 +7,9 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Menu from '../../Components/Menu';
 import { withRouter } from 'react-router';
-import { ButtonBase, CardActionArea } from '@material-ui/core';
 import appAPI from '../../API/config';
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core';
+
 
 
 function Copyright() {
@@ -33,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
-    textAlign: 'center'
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -43,9 +38,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
     display: 'flex',
-    flexDirection: 'column',
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -61,28 +54,21 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-class ChampionsPage extends Component {
-  /*
-  const [champions, setChampions] = useState(null);
-  const apiURL = 'http://localhost:3000/Champion';
-
-  const fetchData = async () => {
-  const response = await axios.get(apiURL);
-  setChampions(response.data);
-}
-*/
-  state = { cards: [1,2,3,4,5,6,7,8,9], champions: [] }
+class ChampionPage extends Component {
+  state = { cards: [1,2,3,4,5,6,7,8,9], champion: {} }
   async componentDidMount(){
-    let champions = await appAPI.getAllChampions();
+    let championName = this.props.location.pathname.match(/\/Champion\/(.*)$/)[1];
+    let champion = await appAPI.getChampion(championName);
     this.setState({
-      champions
+      champion
     });
   }
   render(){
-    const {
-      champions
+    let {
+      champion
     } = this.state;
     const classes = this.props.classes;
+    console.log(champion);
     return (
       <React.Fragment>
         <CssBaseline />
@@ -91,41 +77,38 @@ class ChampionsPage extends Component {
           {/* Hero unit */}
           <div className={classes.heroContent}>
             <Container maxWidth="sm">
-                <h1>Página de Champions</h1>
+                <h1>Champs</h1>
             </Container>
           </div>
           <Container className={classes.cardGrid} fixed>
             {/* End hero unit */}
             <Grid container spacing={4}>
-              {champions.map((champ) => (
-                <Grid item key={champ.key} xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={4}>
                   <Card className={classes.card}>
-                    <ButtonBase onClick={() => this.props.history.push(`${this.props.location.pathname}/${champ.name}`)}>
-                      <CardActionArea>
                         <CardMedia
                             className={classes.cardMedia}
-                            src={champ.image}
-                            title={champ.name}
+                            src={champion.image}
+                            title={champion.name}
                         />
-                        <img src={champ.image} alt={champ.name} />
+                        <img src={champion.splashImage} alt={champion.name} />
                         <CardContent className={classes.cardContent}>
                             <Typography gutterBottom variant="h5" component="h2">
-                            {champ.name}
+                            {champion.name} - {champion.title} | 
                             </Typography>
-                            <Typography>
-                            {champ.blurb}
+                            <Typography variant="h6" component="h6">
+                            {champion.lore}
+                            </Typography>
+                            <Typography variant="subtitle1" color="textPrimary">
+                              Battle Stats
                             </Typography>
                         </CardContent>
-                        <CardActions>
-                            <Button size="small" color="primary">
-                            View
-                            </Button>
-                        </CardActions>
-                      </CardActionArea>
-                  </ButtonBase>
-                  </Card>
+                        </Card>
+                    </Grid>
                 </Grid>
-              ))}
+          </Container>
+          <Container>
+            <Grid>
+              
             </Grid>
           </Container>
         </main>
@@ -144,4 +127,4 @@ class ChampionsPage extends Component {
     );
   }
 }
-export default (withStyles(useStyles)(withRouter(ChampionsPage)));
+export default (withStyles(useStyles)(withRouter(ChampionPage)));

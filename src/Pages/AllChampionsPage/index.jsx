@@ -1,4 +1,9 @@
 import React, { Component, useState } from 'react';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -7,12 +12,8 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Menu from '../../Components/Menu';
 import { withRouter } from 'react-router';
+import { ButtonBase, CardActionArea } from '@material-ui/core';
 import appAPI from '../../API/config';
-import MainCard from './Components/MainCard';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Hidden from '@material-ui/core/Hidden';
 
 
 function Copyright() {
@@ -31,10 +32,8 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    textAlign: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column'
+    padding: theme.spacing(8, 0, 6),
+    textAlign: 'center'
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -49,12 +48,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9,
-    width: '25%'
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
+    paddingTop: '56.25%', // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -65,21 +59,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-class SummonerPage extends Component {
-  state = { summoner: {} }
+
+
+class AllChampionsPage extends Component {
+  state = { champions: [] }
   async componentDidMount(){
-    const name = this.props.location.pathname.match(/\/Summoner\/(.*)$/)[1];
-    let summoner = await appAPI.getSummoner(name);
+    let champions = await appAPI.getAllChampions();
     this.setState({
-      summoner
+      champions
     });
-    console.log(summoner)
   }
   render(){
     const {
-      summoner
+      champions
     } = this.state;
     const classes = this.props.classes;
+    
     return (
       <React.Fragment>
         <CssBaseline />
@@ -88,45 +83,43 @@ class SummonerPage extends Component {
           {/* Hero unit */}
           <div className={classes.heroContent}>
             <Container maxWidth="sm">
-                <h1>Página de Summoner</h1>
+                <h1>Página de Champions</h1>
             </Container>
           </div>
           <Container className={classes.cardGrid} fixed>
             {/* End hero unit */}
-            <Grid>
-              <Grid item xs={12} md={6}>
-        <Card className={classes.card}>
-          <Hidden xsDown>
-            <CardMedia className={classes.cardMedia} image={summoner.summoner.iconImage} title={summoner.summoner.name} />
-          </Hidden>
-          <div className={classes.cardDetails}>
-            <CardContent>
-              <Typography component="h2" variant="h5">
-                {summoner.summoner.name}
-              </Typography>
-              <Typography variant="subtitle1" color="textPrimary">
-                Ranked Solo: {summoner.soloQueue.tier + ' ' + summoner.soloQueue.rank}
-              </Typography>
-              <Typography variant="subtitle2" color="textSecondary">
-                Wins: {summoner.soloQueue.wins}
-              </Typography>
-              <Typography variant="subtitle2" color="textSecondary">
-                Losses: {summoner.soloQueue.losses}
-              </Typography>
-              
-              <Typography variant="subtitle1" color="textPrimary">
-                Ranked Flex: {summoner.flexQueue.tier + ' ' + summoner.flexQueue.rank}
-              </Typography>
-              <Typography variant="subtitle2" color="textSecondary">
-                Wins: {summoner.flexQueue.wins}
-              </Typography>
-              <Typography variant="subtitle2" color="textSecondary">
-                Losses: {summoner.flexQueue.losses}
-              </Typography>
-            </CardContent>
-          </div>
-        </Card>
-    </Grid>
+            <Grid container spacing={4}>
+              {champions.map((champ) => (
+                <Grid item key={champ.key} xs={12} sm={6} md={4}>
+                  <Card className={classes.card}>
+                    <ButtonBase onClick={() => this.props.history.push(`${this.props.location.pathname}/${champ.id}`)}>
+                      <CardActionArea>
+                        <CardMedia
+                            className={classes.cardMedia}
+                            src={champ.image}
+                            title={champ.name}
+                        />
+                        <img src={champ.image} alt={champ.name} />
+                        <CardContent className={classes.cardContent}>
+                            <Typography gutterBottom variant="h5" component="h2">
+                            {champ.name}
+                            </Typography>
+                            <Typography variant="h6" component="h6">
+                            {champ.title}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            {champ.tags.map((tag) => (
+                              <Button size="small" color="primary">
+                            {tag}
+                            </Button>
+                            ))}
+                        </CardActions>
+                      </CardActionArea>
+                  </ButtonBase>
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
           </Container>
         </main>
@@ -145,4 +138,4 @@ class SummonerPage extends Component {
     );
   }
 }
-export default (withStyles(useStyles)(withRouter(SummonerPage)));
+export default (withStyles(useStyles)(withRouter(AllChampionsPage)));

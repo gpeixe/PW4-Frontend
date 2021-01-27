@@ -33,7 +33,7 @@ function Menu(){
       </Typography>
       <div>
         <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Home" onClick={()=> history.push('/')} />
-        <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Champion" onClick={()=> history.push('/Champion')} />
+        <ButtonComponent className={classes.buttons} variant="contained" color="secondary" value="Champions" onClick={()=> history.push('/Champion')} />
       </div>
     </Toolbar>
   </AppBar>
