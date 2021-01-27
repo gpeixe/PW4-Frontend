@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 class SummonerPage extends Component {
-  state = { summoner: {} }
+  state = { summoner: null }
   async componentDidMount(){
     const name = this.props.location.pathname.match(/\/Summoner\/(.*)$/)[1];
     let summoner = await appAPI.getSummoner(name);
@@ -95,7 +95,7 @@ class SummonerPage extends Component {
             {/* End hero unit */}
             <Grid>
               <Grid item xs={12} md={6}>
-        <Card className={classes.card}>
+        {summoner !== null && <Card className={classes.card}>
           <Hidden xsDown>
             <CardMedia className={classes.cardMedia} image={summoner.summoner.iconImage} title={summoner.summoner.name} />
           </Hidden>
@@ -125,7 +125,7 @@ class SummonerPage extends Component {
               </Typography>
             </CardContent>
           </div>
-        </Card>
+        </Card>}
     </Grid>
             </Grid>
           </Container>

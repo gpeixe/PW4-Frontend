@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 class ChampionPage extends Component {
-  state = { cards: [1,2,3,4,5,6,7,8,9], champion: {} }
+  state = { cards: [1,2,3,4,5,6,7,8,9], champion: null }
   async componentDidMount(){
     let championName = this.props.location.pathname.match(/\/Champion\/(.*)$/)[1];
     let champion = await appAPI.getChampion(championName);
@@ -84,7 +84,7 @@ class ChampionPage extends Component {
             {/* End hero unit */}
             <Grid container spacing={4}>
               <Grid item xs={12} sm={6} md={4}>
-                  <Card className={classes.card}>
+                  {champion !== null && <Card className={classes.card}>
                         <CardMedia
                             className={classes.cardMedia}
                             src={champion.image}
@@ -101,8 +101,11 @@ class ChampionPage extends Component {
                             <Typography variant="subtitle1" color="textPrimary">
                               Battle Stats
                             </Typography>
+                            <Typography variant="subtitle1" color="textPrimary">
+                              {champion.info.magic}
+                            </Typography>
                         </CardContent>
-                        </Card>
+                        </Card>}
                     </Grid>
                 </Grid>
           </Container>
