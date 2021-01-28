@@ -82,8 +82,8 @@ class ChampionPage extends Component {
           </div>
           <Container className={classes.cardGrid} fixed>
             {/* End hero unit */}
-            <Grid container spacing={4}>
-              <Grid item xs={12} sm={6} md={4}>
+            <Grid>
+              <Grid item>
                   {champion !== null && <Card className={classes.card}>
                         <CardMedia
                             className={classes.cardMedia}
@@ -93,16 +93,19 @@ class ChampionPage extends Component {
                         <img src={champion.splashImage} alt={champion.name} />
                         <CardContent className={classes.cardContent}>
                             <Typography gutterBottom variant="h5" component="h2">
-                            {champion.name} - {champion.title} | 
+                            {champion.name} - {champion.title} | {champion.tags.join(', ')}
                             </Typography>
                             <Typography variant="h6" component="h6">
                             {champion.lore}
                             </Typography>
-                            <Typography variant="subtitle1" color="textPrimary">
+                            <Typography gutterBottom variant="h5" component="h2">
                               Battle Stats
                             </Typography>
-                            <Typography variant="subtitle1" color="textPrimary">
-                              {champion.info.magic}
+                            <Typography variant="h6" component="h6" color="textSecondary">
+                              Attack: {champion.info.attack} | Defense: {champion.info.defense}
+                            </Typography>
+                            <Typography variant="h6" component="h6" color="textSecondary">
+                              Difficulty: {champion.info.difficulty} | HP: {champion.stats.hp}
                             </Typography>
                         </CardContent>
                         </Card>}
