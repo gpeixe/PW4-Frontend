@@ -15,20 +15,6 @@ import { withRouter } from 'react-router';
 import { ButtonBase, CardActionArea } from '@material-ui/core';
 import appAPI from '../../API/config';
 
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Alterar depois se quiser colocar alguma coisa
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
@@ -123,17 +109,6 @@ class AllChampionsPage extends Component {
             </Grid>
           </Container>
         </main>
-        {/* Footer */}
-        <footer className={classes.footer}>
-          <Typography variant="h6" align="center" gutterBottom>
-            Footer
-          </Typography>
-          <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-            Something here to give the footer a purpose!
-          </Typography>
-          <Copyright />
-        </footer>
-        {/* End footer */}
       </React.Fragment>
     );
   }

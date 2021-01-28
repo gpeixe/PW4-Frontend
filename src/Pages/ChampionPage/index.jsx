@@ -10,21 +10,6 @@ import { withRouter } from 'react-router';
 import appAPI from '../../API/config';
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core';
 
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Alterar depois se quiser colocar alguma coisa
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
@@ -102,10 +87,16 @@ class ChampionPage extends Component {
                               Battle Stats
                             </Typography>
                             <Typography variant="h6" component="h6" color="textSecondary">
-                              Attack: {champion.info.attack} | Defense: {champion.info.defense}
+                              Attack: {champion.info.attack}
                             </Typography>
                             <Typography variant="h6" component="h6" color="textSecondary">
-                              Difficulty: {champion.info.difficulty} | HP: {champion.stats.hp}
+                              Defense: {champion.info.defense}
+                            </Typography>
+                            <Typography variant="h6" component="h6" color="textSecondary">
+                              HP: {champion.stats.hp}
+                            </Typography>
+                            <Typography variant="h6" component="h6" color="textSecondary">
+                              Difficulty: {champion.info.difficulty}
                             </Typography>
                         </CardContent>
                         </Card>}
@@ -118,17 +109,6 @@ class ChampionPage extends Component {
             </Grid>
           </Container>
         </main>
-        {/* Footer */}
-        <footer className={classes.footer}>
-          <Typography variant="h6" align="center" gutterBottom>
-            Footer
-          </Typography>
-          <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-            Something here to give the footer a purpose!
-          </Typography>
-          <Copyright />
-        </footer>
-        {/* End footer */}
       </React.Fragment>
     );
   }
